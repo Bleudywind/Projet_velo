@@ -13,11 +13,12 @@
 #include "Header.h"
 #include "svgfile.h"
 
-graph creation_graph (std::string nom_graph, std::string nom_graph_poids)
+graph creation_graph (std::string nom_graph)
 {
     std::ifstream fichier(nom_graph, std::ios::in);
     std::vector<sommet> sommets;
     std::vector<arrete> arretes;
+    std::string nom_fichier_poids;
 
     if(fichier)
     {
@@ -57,8 +58,13 @@ graph creation_graph (std::string nom_graph, std::string nom_graph_poids)
 
     }
 
+
+
         graph Graph{sommets, arretes};
 
+
+
+        recuperation_poids(Graph, "manhattan_weights_0.txt");
 
 
 
@@ -73,7 +79,7 @@ void affichage_graph (graph Graph)
     std::vector<sommet> Sommet = Graph.Get_sommets();
     std::vector<arrete> Arrete = Graph.Get_arretes();
     sommet S1{0,0,0}, S2{0,0,0};
-
+    std::vector<float> Poids;
 
 
 
@@ -85,8 +91,53 @@ void affichage_graph (graph Graph)
     {
         S1 = Arrete[i].Get_S1();
         S2 = Arrete[i].Get_S2();
+        Poids = Arrete[i].Get_poids();
         svgdiagrame.addLine(S1.Get_x(), S1.Get_y(), S2.Get_x(), S2.Get_y(), "black");
+
     }
 
 
 }
+
+graph recuperation_poids (graph Graph, std::string nom_graph)
+{
+    std::ifstream fichier(nom_graph, std::ios::in);
+    std::vector<arrete> Arretes = Graph.Get_arretes();
+    std::vector<float> Poids;
+    int nb_a, nb_poids;
+    float var;
+
+
+    if (fichier)
+    {
+        std::cout << "coucou";
+
+        fichier >> nb_a >> nb_poids;
+
+        for (int i = 0; i < nb_poids; ++i)
+            Poids.push_back(var);
+
+        for (int i = 0; i < nb_a; ++i)
+        {
+
+                fichier >> var >> var;
+                Poids[0] = var;
+                fichier >> var;
+                Poids[1] = var;
+                Arretes[i].changement_poids(Poids);
+
+        }
+
+        fichier.close();
+    }
+
+       Graph.changement_arretes(Arretes);
+
+    return Graph;
+}
+
+
+
+
+
+

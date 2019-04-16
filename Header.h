@@ -10,10 +10,12 @@
 #define Header_h
 #include "Graph.hpp"
 #include <iostream>
+#include <string>
 
 
 void affichage_graph (graph Graph);
-graph creation_graph (std::string nom_graph, std::string nom_graph_poids);
+graph creation_graph (std::string nom_graph);
+graph recuperation_poids (graph Graph, std::string nom_graph);
 
 
 #endif /* Header_h */

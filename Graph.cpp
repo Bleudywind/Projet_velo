@@ -24,3 +24,8 @@ std::vector<arrete> graph::Get_arretes()
 {
     return m_arretes;
 }
+
+void graph::changement_arretes(std::vector <arrete> arretes)
+{
+    m_arretes = arretes;
+}

@@ -8,8 +8,8 @@
 
 #include "Arretes.hpp"
 
-    arrete::arrete (sommet S_1, sommet S_2, double cout_1, double cout_2, int nb)
-: m_S_1 (S_1), m_S_2 (S_2), m_cout_1(cout_1), m_cout_2(cout_2), m_nb(nb)
+    arrete::arrete (sommet S_1, sommet S_2, int nb)
+: m_S_1 (S_1), m_S_2 (S_2), m_nb(nb)
 {}
 
 arrete::arrete ()
@@ -26,14 +26,9 @@ sommet arrete::Get_S2()
     return m_S_2;
 }
 
-double arrete::Get_cout_1()
+std::vector<float> arrete::Get_poids()
 {
-    return m_cout_1;
-}
-
-double arrete::Get_cout_2()
-{
-    return m_cout_2;
+    return m_poids;
 }
 
 int arrete::Get_nb()
@@ -50,14 +45,9 @@ void arrete::changement_S_2(sommet S_2)
     m_S_2=S_2;
 }
 
-void arrete::changement_cout_1(double cout_1)
+void arrete::changement_poids(std::vector<float> poids)
 {
-    m_cout_1=cout_1;
-}
-
-void arrete::changement_cout_2(double cout_2)
-{
-    m_cout_2=cout_2;
+    m_poids = poids;
 }
 
 void arrete::changement_nb(int nb)

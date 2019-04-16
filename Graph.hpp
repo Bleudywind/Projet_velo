@@ -17,17 +17,18 @@
 class graph
 {
 public:
-  
+
     graph (std::vector <sommet> sommets, std::vector<arrete> arretes);
     graph ();
     std::vector <sommet> Get_sommets();
     std::vector <arrete> Get_arretes();
-    
+    void changement_arretes(std::vector <arrete> arretes);
+
 private:
-    
+
     std::vector <sommet> m_sommets;
     std::vector<arrete> m_arretes;
-    
+
 };
 
 #endif /* Graph_hpp */
