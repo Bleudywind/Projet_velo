@@ -18,7 +18,10 @@ class graph
 {
 public:
   
-    graph (std::vector <sommet> sommets, std::vector<arrete> m_arretes);
+    graph (std::vector <sommet> sommets, std::vector<arrete> arretes);
+    graph ();
+    std::vector <sommet> Get_sommets();
+    std::vector <arrete> Get_arretes();
     
 private:
     

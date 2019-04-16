@@ -20,8 +20,8 @@ class sommet
     int Get_y();
     int Get_nb();
     void changement_x(int x);
-    void changement_y(int x);
-    void changement_nb(int x);
+    void changement_y(int y);
+    void changement_nb(int nb);
     
     
     
