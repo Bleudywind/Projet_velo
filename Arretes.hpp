@@ -15,22 +15,27 @@
 class arrete
 {
     public:
-    
+
     arrete (sommet S_1, sommet S_2, double cout_1, double cout_2);
-    
+
     sommet Get_S1();
     sommet Get_S2();
     double Get_cout_1();
     double Get_cout_2();
-    
-    
+    void changement_S_1( sommet S_1);
+    void changement_S_2( sommet S_2);
+    void changement_cout_1( double cout_1);
+    void changement_cout_2( double cout_2);
+
+
     private:
-    
+
+
     sommet m_S_1;
     sommet m_S_2;
     double m_cout_1;
     double m_cout_2;
-    
+
 };
 
 

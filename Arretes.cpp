@@ -32,3 +32,21 @@ double arrete::Get_cout_2()
     return m_cout_2;
 }
 
+void arrete::changement_S_1(sommet S_1)
+{
+    m_S_1=S_1;
+}
+void arrete::changement_S_2(sommet S_2)
+{
+    m_S_2=S_2;
+}
+
+void arrete::changement_cout_1(double cout_1)
+{
+    m_cout_1=cout_1;
+}
+
+void arrete::changement_cout_2(double cout_2)
+{
+    m_cout_2=cout_2;
+}
