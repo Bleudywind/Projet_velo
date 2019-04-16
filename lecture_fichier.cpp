@@ -15,20 +15,20 @@
 
 graph creation_graph (std::string nom_graph, std::string nom_graph_poids)
 {
-    std::ifstream fichier("nom_graph.txt", std::ios::in);
+    std::ifstream fichier(nom_graph, std::ios::in);
     std::vector<sommet> sommets;
     std::vector<arrete> arretes;
-    
+
     if(fichier)
     {
-       
+
         sommet S1{0,0,0};
         arrete A1;
         int nb;
         int var;
-        
+
         fichier >> nb;
-        
+
         for (int i = 0; i < nb; ++i)
         {
             fichier >> var;
@@ -39,9 +39,9 @@ graph creation_graph (std::string nom_graph, std::string nom_graph_poids)
             S1.changement_y(var);
             sommets.push_back(S1);
         }
-        
+
         fichier >> nb;
-        
+
         for (int i = 0; i < nb; ++i)
         {
             fichier >> var;
@@ -52,33 +52,41 @@ graph creation_graph (std::string nom_graph, std::string nom_graph_poids)
             A1.changement_S_2(sommets[var]);
             arretes.push_back(A1);
         }
-        
+
         fichier.close();
-        
+
     }
-    
+
         graph Graph{sommets, arretes};
-    
-    
-    
-    
+
+
+
+
     return Graph;
-    
+
 }
 
 void affichage_graph (graph Graph)
 {
     Svgfile svgdiagrame;
-    std::vector<sommet> sommet = Graph.Get_sommets();
-    std::vector<arrete> arrete = Graph.Get_arretes();
-    
-    
-    
-    
-    for (int i = 0; i < sommet.size(); ++i)
+    svgdiagrame.addGrid();
+    std::vector<sommet> Sommet = Graph.Get_sommets();
+    std::vector<arrete> Arrete = Graph.Get_arretes();
+    sommet S1{0,0,0}, S2{0,0,0};
+
+
+
+
+    for (int i = 0; i < Sommet.size(); ++i)
     {
-        svgdiagrame.addDisk(sommet[i].Get_x(), sommet[i].Get_y(), 50);
+        svgdiagrame.addDisk(Sommet[i].Get_x(), Sommet[i].Get_y(), 7);
     }
-    
-    
+    for (int i = 0; i < Arrete.size(); ++i)
+    {
+        S1 = Arrete[i].Get_S1();
+        S2 = Arrete[i].Get_S2();
+        svgdiagrame.addLine(S1.Get_x(), S1.Get_y(), S2.Get_x(), S2.Get_y(), "black");
+    }
+
+
 }

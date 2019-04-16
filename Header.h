@@ -9,6 +9,7 @@
 #ifndef Header_h
 #define Header_h
 #include "Graph.hpp"
+#include <iostream>
 
 
 void affichage_graph (graph Graph);
