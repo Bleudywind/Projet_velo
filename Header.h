@@ -8,6 +8,11 @@
 
 #ifndef Header_h
 #define Header_h
+#include "Graph.hpp"
+
+
+void affichage_graph (graph Graph);
+graph creation_graph (std::string nom_graph, std::string nom_graph_poids);
 
 
 #endif /* Header_h */

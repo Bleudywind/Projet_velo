@@ -7,8 +7,15 @@
 //
 
 #include <iostream>
+#include "Header.h"
+#include "Graph.hpp"
 
 int main()
 {
-  
+    graph Graph;
+    
+    Graph = creation_graph("broadway", "bite");
+    affichage_graph(Graph);
+    
+    return 0;
 }

@@ -11,6 +11,7 @@
 #include <string>
 #include <fstream>
 #include "Header.h"
+#include "svgfile.h"
 
 graph creation_graph (std::string nom_graph, std::string nom_graph_poids)
 {
@@ -67,5 +68,17 @@ graph creation_graph (std::string nom_graph, std::string nom_graph_poids)
 
 void affichage_graph (graph Graph)
 {
+    Svgfile svgdiagrame;
+    std::vector<sommet> sommet = Graph.Get_sommets();
+    std::vector<arrete> arrete = Graph.Get_arretes();
+    
+    
+    
+    
+    for (int i = 0; i < sommet.size(); ++i)
+    {
+        svgdiagrame.addDisk(sommet[i].Get_x(), sommet[i].Get_y(), 50);
+    }
+    
     
 }
