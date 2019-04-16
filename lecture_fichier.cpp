@@ -14,10 +14,12 @@
 graph creation_graph (std::string nom_graph)
 {
     std::ifstream fichier("nom_graph.txt", std::ios::in);
+    std::vector<sommet> sommets;
+    std::vector<arrete> arretes;
     
     if(fichier)
     {
-        std::vector<sommet> sommets;
+       
         sommet S1{0,0,0};
         int nb;
         int var;
@@ -32,6 +34,7 @@ graph creation_graph (std::string nom_graph)
             S1.changement_x(var);
             fichier >> var;
             S1.changement_y(var);
+            sommets.push_back(S1);
         }
         
         fichier >> nb;
@@ -42,12 +45,13 @@ graph creation_graph (std::string nom_graph)
         }
         
         fichier.close();
+        
     }
     
-        
+        graph Graph{sommets, arretes};
     
     
-    graph Graph;
+    
     
     return Graph;
     
