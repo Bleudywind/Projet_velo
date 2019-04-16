@@ -10,8 +10,9 @@
 #include "Graph.hpp"
 #include <string>
 #include <fstream>
+#include "Header.h"
 
-graph creation_graph (std::string nom_graph)
+graph creation_graph (std::string nom_graph, std::string nom_graph_poids)
 {
     std::ifstream fichier("nom_graph.txt", std::ios::in);
     std::vector<sommet> sommets;
@@ -21,6 +22,7 @@ graph creation_graph (std::string nom_graph)
     {
        
         sommet S1{0,0,0};
+        arrete A1;
         int nb;
         int var;
         
@@ -41,7 +43,13 @@ graph creation_graph (std::string nom_graph)
         
         for (int i = 0; i < nb; ++i)
         {
-            <#statements#>
+            fichier >> var;
+            A1.changement_nb(var);
+            fichier >> var;
+            A1.changement_S_1(sommets[var]);
+            fichier >> var;
+            A1.changement_S_2(sommets[var]);
+            arretes.push_back(A1);
         }
         
         fichier.close();
@@ -54,5 +62,10 @@ graph creation_graph (std::string nom_graph)
     
     
     return Graph;
+    
+}
+
+void affichage_graph (graph Graph)
+{
     
 }
