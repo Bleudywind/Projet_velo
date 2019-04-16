@@ -28,3 +28,16 @@ int sommet::Get_nb()
     return m_nb;
 }
 
+void sommet::changement_x(int x)
+{
+    m_x = x;
+}
+
+void sommet::changement_y(int y)
+{
+    m_y = y;
+}
+void sommet::changement_nb(int nb)
+{
+    m_nb = nb;
+}
