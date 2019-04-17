@@ -14,9 +14,9 @@
 int main()
 {
     graph Graph;
-    
 
-    Graph = creation_graph("triville.txt");
+
+    Graph = creation_graph("manhattan.txt");
     affichage_graph(Graph);
 
     return 0;
