@@ -110,7 +110,7 @@ graph recuperation_poids (graph Graph, std::string nom_graph)
 
     if (fichier)
     {
-        std::cout << "coucou";
+
 
         fichier >> nb_a >> nb_poids;
 
