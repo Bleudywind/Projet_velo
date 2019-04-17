@@ -54,3 +54,8 @@ void arrete::changement_nb(int nb)
 {
     m_nb = nb;
 }
+
+float arrete::Get_N_poids (int choix_poids)
+{
+    return m_poids[choix_poids];
+}

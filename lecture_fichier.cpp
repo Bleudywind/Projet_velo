@@ -105,7 +105,7 @@ graph recuperation_poids (graph Graph, std::string nom_graph)
     std::ifstream fichier(nom_graph, std::ios::in);
     std::vector<arrete> Arretes = Graph.Get_arretes();
     std::vector<float> Poids;
-    int nb_a, nb_poids;
+    int nb_a, nb_poids, numero;
     float var = 0;
 
 
@@ -123,11 +123,12 @@ graph recuperation_poids (graph Graph, std::string nom_graph)
         for (int i = 0; i < nb_a; ++i)
         {
 
-                fichier >> var >> var;
+                fichier >> numero >> var;
                 Poids[0] = var;
                 fichier >> var;
                 Poids[1] = var;
-                Arretes[i].changement_poids(Poids);
+                Arretes[numero].changement_poids(Poids);
+                Arretes[numero].changement_nb(i);
 
         }
 

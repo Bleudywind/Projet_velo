@@ -17,6 +17,7 @@ int main()
 
 
     Graph = creation_graph("manhattan.txt");
+    Graph.kruskal(1);
     affichage_graph(Graph);
 
     return 0;

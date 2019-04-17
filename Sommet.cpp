@@ -41,4 +41,3 @@ void sommet::changement_nb(int nb)
 {
     m_nb = nb;
 }
-

@@ -21,6 +21,7 @@ class arrete
     sommet Get_S1();
     sommet Get_S2();
     std::vector<float> Get_poids();
+    float Get_N_poids (int choix_poids);
 
     int Get_nb();
     void changement_S_1( sommet S_1);
