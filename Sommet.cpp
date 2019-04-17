@@ -10,7 +10,7 @@
 #include "Sommet.h"
 
 sommet::sommet(int x, int y, int nb)
-: m_x(x), m_y(y), m_nb(nb)
+: m_x(x), m_y(y), m_nb(nb), m_arretes(NULL)
 {}
 
 int sommet::Get_x()
@@ -40,4 +40,9 @@ void sommet::changement_y(int y)
 void sommet::changement_nb(int nb)
 {
     m_nb = nb;
+}
+
+void sommet::changement_arrete(arrete Arrete)
+{
+    m_arretes.push_back(Arrete);
 }

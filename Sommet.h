@@ -8,7 +8,8 @@
 
 #ifndef Sommet_h
 #define Sommet_h
-
+#include <vector>
+#include "Arretes.hpp"
 
 class sommet
 {
@@ -22,12 +23,14 @@ class sommet
     void changement_x(int x);
     void changement_y(int y);
     void changement_nb(int nb);
+    void changement_arrete(arrete Arrete);
     
     
     
     
     private :
     
+    std::vector<arrete> m_arretes;
     int m_x;
     int m_y;
     int m_nb;
