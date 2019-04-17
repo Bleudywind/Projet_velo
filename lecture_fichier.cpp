@@ -20,8 +20,10 @@ graph creation_graph (std::string nom_graph)
     std::vector<arrete> arretes;
     std::string nom_fichier_poids;
 
+    
     if(fichier)
     {
+        
         sommet S1{0,0,0};
         arrete A1;
         int nb;
@@ -63,7 +65,7 @@ graph creation_graph (std::string nom_graph)
 
 
 
-        recuperation_poids(Graph, "manhattan_weights_0.txt");
+       // recuperation_poids(Graph, "manhattan_weights_0.txt");
 
 
 
