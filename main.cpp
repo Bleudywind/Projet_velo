@@ -9,10 +9,12 @@
 #include <iostream>
 #include "Header.h"
 #include "Graph.hpp"
+#include "svgfile.h"
 
 int main()
 {
     graph Graph;
+    
 
     Graph = creation_graph("manhattan.txt");
     affichage_graph(Graph);

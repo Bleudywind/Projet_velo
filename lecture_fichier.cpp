@@ -22,7 +22,6 @@ graph creation_graph (std::string nom_graph)
 
     if(fichier)
     {
-
         sommet S1{0,0,0};
         arrete A1;
         int nb;
