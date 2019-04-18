@@ -20,13 +20,14 @@ class arrete
     arrete ();
     sommet Get_S1();
     sommet Get_S2();
-    std::vector<float> Get_poids();
-    float Get_N_poids (int choix_poids);
+    float Get_Poids_1();
+    float Get_Poids_2();
 
     int Get_nb();
     void changement_S_1( sommet S_1);
     void changement_S_2( sommet S_2);
-    void changement_poids(std::vector<float> poids);
+    void changement_poids_1(float poids_1);
+    void changement_poids_2(float poids_2);
 
     void changement_nb (int nb);
 
@@ -36,7 +37,7 @@ class arrete
 
     sommet m_S_1;
     sommet m_S_2;
-    std::vector<float> m_poids;
+    float m_poids_1, m_poids_2;
     int m_nb;
 
 };

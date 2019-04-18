@@ -26,9 +26,14 @@ sommet arrete::Get_S2()
     return m_S_2;
 }
 
-std::vector<float> arrete::Get_poids()
+float arrete::Get_Poids_1()
 {
-    return m_poids;
+    return m_poids_1;
+}
+
+float arrete::Get_Poids_2()
+{
+    return m_poids_2;
 }
 
 int arrete::Get_nb()
@@ -45,9 +50,13 @@ void arrete::changement_S_2(sommet S_2)
     m_S_2=S_2;
 }
 
-void arrete::changement_poids(std::vector<float> poids)
+void arrete::changement_poids_1(float poids)
 {
-    m_poids = poids;
+    m_poids_1 = poids;
+}
+void arrete::changement_poids_2(float poids)
+{
+    m_poids_2 = poids;
 }
 
 void arrete::changement_nb(int nb)
@@ -55,7 +64,4 @@ void arrete::changement_nb(int nb)
     m_nb = nb;
 }
 
-float arrete::Get_N_poids (int choix_poids)
-{
-    return m_poids[choix_poids];
-}
+

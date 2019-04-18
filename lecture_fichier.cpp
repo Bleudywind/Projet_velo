@@ -65,7 +65,7 @@ graph creation_graph (std::string nom_graph)
 
 
 
-        recuperation_poids(Graph, "manhattan_weights_0.txt");
+      Graph = recuperation_poids(Graph, "manhattan_weights_0.txt");
 
 
 
@@ -80,7 +80,7 @@ void affichage_graph (graph Graph)
     std::vector<sommet> Sommet = Graph.Get_sommets();
     std::vector<arrete> Arrete = Graph.Get_arretes();
     sommet S1{0,0,0}, S2{0,0,0};
-    std::vector<float> Poids;
+    
 
 
 
@@ -92,7 +92,6 @@ void affichage_graph (graph Graph)
     {
         S1 = Arrete[i].Get_S1();
         S2 = Arrete[i].Get_S2();
-        Poids = Arrete[i].Get_poids();
         svgdiagrame.addLine(S1.Get_x(), S1.Get_y(), S2.Get_x(), S2.Get_y(), "black");
 
     }
@@ -104,7 +103,7 @@ graph recuperation_poids (graph Graph, std::string nom_graph)
 {
     std::ifstream fichier(nom_graph, std::ios::in);
     std::vector<arrete> Arretes = Graph.Get_arretes();
-    std::vector<float> Poids;
+    
     int nb_a, nb_poids, numero;
     float var = 0;
 
@@ -115,8 +114,8 @@ graph recuperation_poids (graph Graph, std::string nom_graph)
 
         fichier >> nb_a >> nb_poids;
 
-        for (int i = 0; i < nb_poids; ++i)
-            Poids.push_back(var);
+       
+        
 
 
 
@@ -124,18 +123,20 @@ graph recuperation_poids (graph Graph, std::string nom_graph)
         {
 
                 fichier >> numero >> var;
-                Poids[0] = var;
+                Arretes[numero].changement_poids_1(var);
+            //std::cout << Arretes[numero].Get_Poids_1();
                 fichier >> var;
-                Poids[1] = var;
-                Arretes[numero].changement_poids(Poids);
+                Arretes[numero].changement_poids_2(var);
                 Arretes[numero].changement_nb(i);
-
+            
         }
 
         fichier.close();
     }
 
        Graph.changement_arretes(Arretes);
+    Arretes = Graph.Get_arretes();
+    std::cout << Arretes[0].Get_Poids_1();
 
     return Graph;
 }

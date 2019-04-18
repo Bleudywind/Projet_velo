@@ -14,10 +14,13 @@
 int main()
 {
     graph Graph;
+    std::vector<arrete> arrete;
 
 
     Graph = creation_graph("manhattan.txt");
-    Graph.kruskal(1);
+    arrete = Graph.Get_arretes();
+    std::cout << arrete[0].Get_Poids_1();
+    Graph.kruskal(0);
     affichage_graph(Graph);
 
     return 0;
