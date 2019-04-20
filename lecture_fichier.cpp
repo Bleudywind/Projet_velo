@@ -68,7 +68,7 @@ graph creation_graph (std::string nom_graph)
 
 
 
-      Graph = recuperation_poids(Graph, "manhattan_weights_0.txt");
+      Graph = recuperation_poids(Graph, "triville_weights_0.txt");
 
 
 

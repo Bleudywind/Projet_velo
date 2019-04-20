@@ -58,7 +58,7 @@ void Pareto::creation_liste_graph()
     graph Graph{Sommets, arretes_test};
     bool non =0;
     sommet S1{0,0,0}, S2{0,0,0};
-    int taille = 0, max_P1 = 0, max_P2 = 0;
+    int taille = 0, max_P1 = 0, max_P2 = 0, compteur_m =0;
     arrete Arrete_test;
     std::vector<graph> P2;
     std::vector<std::vector<graph>> P1;
@@ -72,6 +72,17 @@ void Pareto::creation_liste_graph()
     }
     while (!m_compteur[arretes_original.size()])
     {
+        for (int i = 0; i < arretes_original.size(); ++i)
+        {
+            if (m_compteur[i] == 1)
+                compteur_m++;
+        }
+        
+        
+        if (compteur_m == Sommets.size() - 1)
+        {
+            
+        
         for (int i = 0; i < arretes_original.size(); i++)
         {
             if (m_compteur[i])
@@ -82,9 +93,6 @@ void Pareto::creation_liste_graph()
             
             
         }
-        
-        if (arretes_test.size() == Sommets.size() - 1)
-        {
             
             for (int i = 0; i < arretes_test.size(); ++i)
             {
@@ -171,7 +179,7 @@ void Pareto::creation_liste_graph()
                 
             }
         }
-        
+        compteur_m =0;
         arretes_test.clear();
         this->compteur();
         non = 0;
