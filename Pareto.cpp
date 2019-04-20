@@ -134,7 +134,7 @@ void Pareto::creation_liste_graph()
                     if(m_Graphs_verts[i].cout_totale_1() > Graph.cout_totale_1() && m_Graphs_verts[i].cout_totale_2() > Graph.cout_totale_2())
                     {
                         m_Graphs_verts.erase(m_Graphs_verts.begin() + i);
-                        std::cout << "t mor ";
+                        
                     }
                     
                     
