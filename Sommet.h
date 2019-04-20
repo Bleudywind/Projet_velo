@@ -20,9 +20,12 @@ class sommet
     int Get_x();
     int Get_y();
     int Get_nb();
+    std::vector<int> Get_aretes();
     void changement_x(int x);
     void changement_y(int y);
     void changement_nb(int nb);
+    void changement_aretes(std::vector<int> aretes);
+    void ajout_arete(int nb_aretes);
 
 
 
@@ -34,6 +37,7 @@ class sommet
     int m_x;
     int m_y;
     int m_nb;
+    std::vector<int> m_aretes;
 };
 
 #endif /* Sommet_h */

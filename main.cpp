@@ -10,18 +10,22 @@
 #include "Header.h"
 #include "Graph.hpp"
 #include "svgfile.h"
+#include "Pareto.hpp"
 
 int main()
 {
-    graph Graph;
-    std::vector<arrete> arrete;
-
-
-    Graph = creation_graph("manhattan.txt");
-    arrete = Graph.Get_arretes();
-    std::cout << arrete[0].Get_Poids_1();
-    Graph.kruskal(0);
-    affichage_graph(Graph);
-
+    graph Graph, Graph_2;
+    Svgfile svgout;
+    svgout.addGrid();
+    Graph = creation_graph("broadway.txt");
+    Graph_2 = Graph;
+    Graph.kruskal();
+    Graph_2.kruskal_2();
+    affichage_graph(Graph, 0, svgout);
+    affichage_graph(Graph_2, 400, svgout);
+   // Pareto pareto{Graph};
+    //pareto.creation_liste_graph();
+    //pareto.affichage_pareto();
+    
     return 0;
 }

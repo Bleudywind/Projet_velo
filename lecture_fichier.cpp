@@ -19,6 +19,7 @@ graph creation_graph (std::string nom_graph)
     std::vector<sommet> sommets;
     std::vector<arrete> arretes;
     std::string nom_fichier_poids;
+    std::vector<int> aretes;
 
 
     if(fichier)
@@ -50,8 +51,10 @@ graph creation_graph (std::string nom_graph)
             A1.changement_nb(var);
             fichier >> var;
             A1.changement_S_1(sommets[var]);
+            sommets[var].ajout_arete(i);
             fichier >> var;
             A1.changement_S_2(sommets[var]);
+            sommets[var].ajout_arete(i);
             arretes.push_back(A1);
         }
 
@@ -65,7 +68,7 @@ graph creation_graph (std::string nom_graph)
 
 
 
-      Graph = recuperation_poids(Graph, "manhattan_weights_0.txt");
+      Graph = recuperation_poids(Graph, "broadway_weights_0.txt");
 
 
 
@@ -73,28 +76,44 @@ graph creation_graph (std::string nom_graph)
 
 }
 
-void affichage_graph (graph Graph)
+void affichage_graph (graph Graph, int decalage, Svgfile& svgdiagrame)
 {
-    Svgfile svgdiagrame;
-    svgdiagrame.addGrid();
+    
+    
     std::vector<sommet> Sommet = Graph.Get_sommets();
     std::vector<arrete> Arrete = Graph.Get_arretes();
     sommet S1{0,0,0}, S2{0,0,0};
+    int x_max = 0, x_min = 0, y_max = 0;
+    std::string texte;
+
     
-
-
 
     for (int i = 0; i < Sommet.size(); ++i)
     {
-        svgdiagrame.addDisk(Sommet[i].Get_x(), Sommet[i].Get_y(), 7);
+        svgdiagrame.addDisk(Sommet[i].Get_x() + decalage, Sommet[i].Get_y(), 7);
+        if (Sommet[i].Get_x() > x_max)
+            x_max = Sommet[i].Get_x();
+        if (Sommet[i].Get_x() < x_min)
+            x_min = Sommet[i].Get_x();
+        if (Sommet[i].Get_y() > y_max)
+            y_max = Sommet[i].Get_y();
     }
     for (int i = 0; i < Arrete.size(); ++i)
     {
         S1 = Arrete[i].Get_S1();
         S2 = Arrete[i].Get_S2();
-        svgdiagrame.addLine(S1.Get_x(), S1.Get_y(), S2.Get_x(), S2.Get_y(), "black");
+        svgdiagrame.addLine(S1.Get_x() + decalage, S1.Get_y(), S2.Get_x() + decalage, S2.Get_y(), "black");
 
     }
+    
+  
+    
+    svgdiagrame.addText((x_max + x_min + 20)/2 + decalage, y_max + 20, Graph.cout_totale_1() );
+    svgdiagrame.addText((x_max + x_min +20)/2 + decalage + 30, y_max + 20, ":" );
+    svgdiagrame.addText((x_max + x_min +20)/2 + decalage + 40, y_max + 20, Graph.cout_totale_2() );
+    
+    
+    
 
 
 }
@@ -124,7 +143,6 @@ graph recuperation_poids (graph Graph, std::string nom_graph)
 
                 fichier >> numero >> var;
                 Arretes[numero].changement_poids_1(var);
-            //std::cout << Arretes[numero].Get_Poids_1();
                 fichier >> var;
                 Arretes[numero].changement_poids_2(var);
                 Arretes[numero].changement_nb(i);
@@ -136,7 +154,7 @@ graph recuperation_poids (graph Graph, std::string nom_graph)
 
        Graph.changement_arretes(Arretes);
     Arretes = Graph.Get_arretes();
-    std::cout << Arretes[0].Get_Poids_1();
+   
 
     return Graph;
 }

@@ -11,12 +11,12 @@
 #include "Graph.hpp"
 #include <iostream>
 #include <string>
+#include "svgfile.h"
 
-
-void affichage_graph (graph Graph);
+void affichage_graph (graph Graph, int decalage, Svgfile& svgdiagrame);
 graph creation_graph (std::string nom_graph);
 graph recuperation_poids (graph Graph, std::string nom_graph);
-
+void compteur_binaire();
 
 
 #endif /* Header_h */

@@ -23,7 +23,10 @@ public:
     std::vector <sommet> Get_sommets();
     std::vector <arrete> Get_arretes();
     void changement_arretes(std::vector <arrete> arretes);
-    void kruskal (int choix_poids);
+    void kruskal ();
+    void kruskal_2();
+    int cout_totale_1();
+    int cout_totale_2();
 
 private:
 

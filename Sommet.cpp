@@ -41,3 +41,17 @@ void sommet::changement_nb(int nb)
 {
     m_nb = nb;
 }
+void sommet::changement_aretes(std::vector<int> aretes)
+{
+    m_aretes = aretes;
+}
+
+std::vector<int> sommet::Get_aretes()
+{
+    return m_aretes;
+}
+
+void sommet::ajout_arete(int nb_aretes)
+{
+    m_aretes.push_back(nb_aretes);
+}
