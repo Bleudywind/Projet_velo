@@ -26,6 +26,7 @@ class sommet
     void changement_nb(int nb);
     void changement_aretes(std::vector<int> aretes);
     void ajout_arete(int nb_aretes);
+    void reset_arete();
 
 
 

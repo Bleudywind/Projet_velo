@@ -1,149 +1,156 @@
 //
-//  Pareto.cpp
+//  Djikstra.cpp
 //  Projet velo
 //
-//  Created by Thomas FLG on 19/04/2019.
+//  Created by Thomas FLG on 21/04/2019.
 //  Copyright © 2019 Thomas FLG. All rights reserved.
 //
 
-#include "Pareto.hpp"
+#include "Djikstra.hpp"
+#include "Graph.hpp"
+#include <vector>
+#include <iostream>
 #include "svgfile.h"
 
-Pareto::Pareto(graph Graph)
-: m_Graph_original(Graph), m_rayon(0)
+int bfs(graph Graph)
 {
-    for (int i = 0 ; i < 25; ++i)
+    
+    std::vector<bool> marquage;
+    std::vector<arrete> Arrete = Graph.Get_arretes();
+    std::vector<sommet> Sommets = Graph.Get_sommets();
+    std::vector<int> file_attente, arete;
+    
+    
+    file_attente.push_back(0);
+    
+    for (int i = 0; i < Sommets.size(); ++i)
+    {
+        marquage.push_back(0);
+    }
+    
+    while (file_attente.size() != 0)
+    {
+        
+        if (!marquage[file_attente[0]])
+        {
+            marquage[file_attente[0]] = 1;
+            arete = Sommets[file_attente[0]].Get_aretes();
+            for (int i = 0; i < arete.size(); ++i)
+            {
+                if (!marquage[Arrete[arete[i]].Get_nb_S1()])
+                {
+                    file_attente.push_back(Arrete[arete[i]].Get_nb_S1());
+                }
+                if (!marquage[Arrete[arete[i]].Get_nb_S2()])
+                {
+                    file_attente.push_back(Arrete[arete[i]].Get_nb_S2());
+                }
+            }
+            
+        }
+        file_attente.erase(file_attente.begin());
+        std::cout << file_attente.size() << "\n";
+    }
+    
+    for (int i = 0; i < marquage.size(); ++i)
+    {
+        
+        if (!marquage[i])
+            return 1;
+    }
+    return 0;
+}
+
+void Partie_3(graph Graph)
+{
+    Svgfile svgout;
+    svgout.addGrid();
+    std::vector<bool> m_compteur;
+    std::vector<arrete> arretes_original = Graph.Get_arretes(), arretes_test;
+    std::vector<sommet> Sommets = Graph.Get_sommets(), sommet_tampon;
+    std::vector<std::vector<std::vector<graph>>> m_Graphs;
+    std::vector<std::vector<graph>> P1;
+    std::vector<graph> P2, m_Graphs_verts;
+    std::vector<std::vector<int>> arete;
+    bool non = 0,vert = 1;
+    int compteur_m = 0, j =0, max_P1 = 0, max_P2 = 0, cout_2;
+    double m_rayon = 0;
+    
+    for (int i = 0; i < arretes_original.size() + 1; ++i)
     {
         m_compteur.push_back(0);
     }
-}
-void Pareto::changement_graph_original(graph Graph)
-{
-    m_Graph_original = Graph;
-}
-void Pareto::ajout_Graph(graph Graph, int poids_1, int Poids_2)
-{
-    m_Graphs[poids_1][Poids_2].push_back(Graph);
-}
-
-graph Pareto::Get_un_graph(int nb_graph, int poids_1, int Poids_2)
-{
-    return m_Graphs[poids_1][Poids_2][nb_graph];
-}
-
-std::vector<std::vector<std::vector<graph>>> Pareto::Get_graphs()
-{
-    return m_Graphs;
-}
-
-void Pareto::creation_liste_graph()
-{
-    std::vector<sommet> Sommets = m_Graph_original.Get_sommets();
-    std::vector<arrete> arretes_test, arretes_original = m_Graph_original.Get_arretes();
-    std::vector<int> Tri;
-    graph Graph{Sommets, arretes_test};
-    bool non =0;
-    sommet S1{0,0,0}, S2{0,0,0};
-    int max_P1 = 0, max_P2 = 0, compteur_m =0, count = 0, j =0;
-    arrete Arrete_test;
-    std::vector<graph> P2;
-    std::vector<std::vector<graph>> P1;
-    bool vert = 1;
-    
-    
-    
-    for (int i =0; i < Sommets.size() ; ++i)
-    {
-        Tri.push_back(i);
-    }
-    
+   
     while (!m_compteur[arretes_original.size()])
     {
         
         
         non = 0;
-            
-            
-            if (m_compteur[0] == 0)
+        
+        
+        if (m_compteur[0] == 0)
+        {
+            m_compteur[0] = 1;
+            ++compteur_m;
+        }
+        
+        else
+        {
+            while (m_compteur[j] != 0)
             {
-                m_compteur[0] = 1;
-                ++compteur_m;
+                m_compteur[j] = 0;
+                ++j;
+                --compteur_m;
             }
-            
-            else
-            {
-                while (m_compteur[j] != 0)
-                {
-                    m_compteur[j] = 0;
-                    ++j;
-                    --compteur_m;
-                }
-                m_compteur[j] = 1;
-                j = 0;
-                ++compteur_m;
-            }
+            m_compteur[j] = 1;
+            j = 0;
+            ++compteur_m;
+        }
         j =0;
         
-       
-        if (compteur_m == Sommets.size() - 1)
-        {
-            
         
-        for (int i = 0; i < arretes_original.size(); i++)
+        if (compteur_m >= Sommets.size() - 1)
         {
-            if (m_compteur[i])
+            for (int i = 0; i < Sommets.size(); ++i)
+                Sommets[i].reset_arete();
+            
+            for (int i = 0; i < arretes_original.size(); i++)
             {
-                arretes_test.push_back(arretes_original[i]);
+                if (m_compteur[i])
+                {
+                    arretes_test.push_back(arretes_original[i]);
+                    Sommets[arretes_original[i].Get_nb_S1()].ajout_arete(i);
+                    Sommets[arretes_original[i].Get_nb_S2()].ajout_arete(i);
+                }
+                
                 
             }
             
             
-        }
             
+            Graph.changement_arretes(arretes_test);
+            Graph.changement_sommets(Sommets);
+            non = bfs(Graph);
+            std::cout << "entering";
             
-           
-            
-            for (double i = 0; i < arretes_test.size() ; ++i)
-            {
-                if(Tri[arretes_test[i].Get_nb_S1()] == Tri[arretes_test[i].Get_nb_S2()])
-                {
-                    non = 1;
-                    i = arretes_test.size();
-                }
-                else
-                {
-                    count = Tri[arretes_test[i].Get_nb_S2()];
-                    for (int j =0; j < Tri.size(); ++j)
-                    {
-                       
-                        if(Tri[j] == count)
-                            Tri[j] = Tri[arretes_test[i].Get_nb_S1()];
-                    }
-                }
-            }
-           
-            for (int i = 0; i < Tri.size(); ++i)
-            {
-                Tri[i] = i;
-            }
-           
             
             
             if (!non)
             {
-                Graph.changement_arretes(arretes_test);
+                
+                cout_2 = Graph.dijkstra();
                 
                 if (Graph.cout_totale_1() > max_P1)
                 {
                     for (int i = max_P1; i <= Graph.cout_totale_1(); ++i)
                     {
                         m_Graphs.push_back(P1);
-                       
+                        
                     }
                 }
-                if (Graph.cout_totale_2() > max_P2)
+                if (cout_2 > max_P2)
                 {
-                    for (int i = max_P2; i <= Graph.cout_totale_2(); ++i)
+                    for (int i = max_P2; i <= cout_2; ++i)
                     {
                         m_Graphs[Graph.cout_totale_1()].push_back(P2);
                         
@@ -158,7 +165,6 @@ void Pareto::creation_liste_graph()
                     if(m_Graphs_verts[i].cout_totale_1() > Graph.cout_totale_1() && m_Graphs_verts[i].cout_totale_2() > Graph.cout_totale_2())
                     {
                         m_Graphs_verts.erase(m_Graphs_verts.begin() + i);
-                        i--;
                         
                     }
                     
@@ -166,10 +172,10 @@ void Pareto::creation_liste_graph()
                     
                     if (m_Graphs_verts[i].cout_totale_1() >= Graph.cout_totale_1() || m_Graphs_verts[i].cout_totale_2() >= Graph.cout_totale_2())
                     {}
-                        
+                    
                     else
                         vert = 0;
-                       
+                    
                 }
                 
                 
@@ -191,24 +197,12 @@ void Pareto::creation_liste_graph()
                 
                 
             }
-        
+            
         }
         
         arretes_test.clear();
         
     }
-    
-   
-}
-
-void Pareto::affichage_pareto()
-{
-    Svgfile svgout;
-    svgout.addGrid();
-    std::vector<std::vector<std::vector<graph>>> Graphs = m_Graphs;
-    
-    
-    
     
     for (int i = 0; i < m_Graphs.size(); ++i )
     {
@@ -240,9 +234,6 @@ void Pareto::affichage_pareto()
     {
         
         svgout.addDisk(m_Graphs_verts[i].cout_totale_1()* 7 +100, m_Graphs_verts[i].cout_totale_2()*7 +100, 5, "green");
-
-    }
-   
         
-    
+    }
 }

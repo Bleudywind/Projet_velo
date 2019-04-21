@@ -20,7 +20,7 @@ public:
     graph Get_un_graph(int nb_graph, int poids_1, int Poids_2);
     std::vector<std::vector<std::vector<graph>>> Get_graphs();
     void creation_liste_graph();
-    void compteur();
+    void compteur(int & count);
     void affichage_pareto();
     void changement_graph_original(graph Graph);
     

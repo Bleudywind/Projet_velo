@@ -10,10 +10,16 @@
 #include "iostream"
 
 graph::graph (std::vector <sommet> sommets, std::vector<arrete> arretes)
-: m_sommets(sommets), m_arretes(arretes)
-{}
+: m_sommets(sommets), m_arretes(arretes), m_poids_totale(0)
+{
+    for (int i = 0; i < arretes.size() ; i++)
+    {
+        m_marquage.push_back(0);
+    }
+}
 
 graph::graph ()
+: m_poids_totale(0)
 {}
 
 std::vector<sommet> graph::Get_sommets()
@@ -29,6 +35,13 @@ std::vector<arrete> graph::Get_arretes()
 void graph::changement_arretes(std::vector <arrete> arretes)
 {
     m_arretes = arretes;
+    
+    m_marquage.clear();
+    
+    for (int i = 0; i < arretes.size() ; i++)
+    {
+       m_marquage.push_back(0);
+    }
 }
 
 void graph::kruskal() 
@@ -224,4 +237,80 @@ int graph::cout_totale_2()
     }
     
     return cout_totale;
+}
+
+void graph::marquage(int indice_sommets, std::vector<int> &arete_poids, std::vector<int> &fil_attente)
+{
+    
+    std::vector<int> arete =m_sommets[indice_sommets].Get_aretes();
+    
+    for (int i =0; i < arete.size() ; ++i)
+    {
+        if (m_marquage[arete[i]] == 0)
+        {
+            m_marquage[arete[i]] = 1;
+            if (m_arretes[arete[i]].Get_nb_S1() == indice_sommets)
+            {
+                fil_attente.push_back(m_arretes[arete[i]].Get_nb_S2());
+                
+                if (arete_poids[m_arretes[arete[i]].Get_nb_S2()] == 0 || arete_poids[m_arretes[arete[i]].Get_nb_S2()] > (m_arretes[arete[i]].Get_Poids_2() + arete_poids[indice_sommets]))
+                {
+                        arete_poids[m_arretes[arete[i]].Get_nb_S2()] = m_arretes[arete[i]].Get_Poids_2() + arete_poids[indice_sommets];
+                }
+                
+            }
+            
+            else
+            {
+                fil_attente.push_back(m_arretes[arete[i]].Get_nb_S1());
+                
+                if (arete_poids[m_arretes[arete[i]].Get_nb_S1()] == 0 || (arete_poids[m_arretes[arete[i]].Get_nb_S1()] > m_arretes[arete[i]].Get_Poids_2() + arete_poids[indice_sommets]))
+                    {
+                            arete_poids[m_arretes[arete[i]].Get_nb_S1()] = m_arretes[arete[i]].Get_Poids_2() + arete_poids[indice_sommets];
+                    }
+                    
+            }
+            
+            
+        }
+    }
+    fil_attente.erase(fil_attente.begin());
+}
+
+
+int graph::dijkstra()
+{
+    std::vector<int> sommet_poids, file_attente;
+    
+    
+    for (int i = 0; i < m_sommets.size(); ++i)
+    {
+        sommet_poids.push_back(0);
+    }
+    
+    for (int i = 0; i < m_sommets.size(); ++i)
+    {
+        file_attente.push_back(i);
+    
+    while (file_attente.size() != 0)
+    {
+        marquage(file_attente[0], sommet_poids, file_attente);
+    }
+    for (int j = 0; j < sommet_poids.size(); ++j)
+    {
+           m_poids_totale = m_poids_totale + sommet_poids[j];
+           sommet_poids[j] = 0;
+    }
+        for (int j = 0; j < m_arretes.size(); ++j)
+            m_marquage[j] = 0;
+        
+        
+       
+    }
+    return m_poids_totale;
+}
+
+void graph::changement_sommets(std::vector <sommet> Sommets)
+{
+    m_sommets = Sommets;
 }

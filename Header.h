@@ -18,6 +18,7 @@ graph creation_graph (std::string nom_graph, int  &ouverture, int choix_poids);
 graph recuperation_poids (graph Graph, std::string nom_graph);
 void compteur_binaire();
 int menu();
+void Partie_3(graph Graph);
 
 
 #endif /* Header_h */

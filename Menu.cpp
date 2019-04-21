@@ -20,7 +20,14 @@ void menu_svg (graph Graph, graph Graph_2)
     affichage_graph(Graph_2, 400, svgout);
     
 }
-graph ouverture_fichier (graph Graph, Pareto& pareto)
+void menu_pareto(graph Graph)
+{
+    Pareto pareto{Graph};
+    
+    pareto.creation_liste_graph();
+    pareto.affichage_pareto();
+}
+graph ouverture_fichier (graph Graph)
 {
     int ouverture = 1, numero_poids;
     std::string nom_fichier;
@@ -34,7 +41,7 @@ graph ouverture_fichier (graph Graph, Pareto& pareto)
         Graph = creation_graph(nom_fichier, ouverture, numero_poids);
         
     }
-    pareto.changement_graph_original(Graph);
+    
     return Graph;
 }
 int menu()
@@ -42,9 +49,8 @@ int menu()
     
     graph Graph, Graph_2;
     int  choix, quitter = 0;
-    Pareto pareto{Graph};
     
-    Graph = ouverture_fichier(Graph, pareto);
+    Graph = ouverture_fichier(Graph);
     
     
     
@@ -69,14 +75,14 @@ int menu()
                 break;
                 
             case 2:
-                pareto.creation_liste_graph();
-                pareto.affichage_pareto();
+                menu_pareto(Graph);
                 break;
                 
             case 3:
+                Partie_3(Graph);
                 break;
             case 4:
-                Graph = ouverture_fichier(Graph, pareto);
+                Graph = ouverture_fichier(Graph);
                 break;
             default:
                 quitter = 1;

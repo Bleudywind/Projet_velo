@@ -55,3 +55,8 @@ void sommet::ajout_arete(int nb_aretes)
 {
     m_aretes.push_back(nb_aretes);
 }
+
+void sommet::reset_arete()
+{
+    m_aretes.clear();
+}
