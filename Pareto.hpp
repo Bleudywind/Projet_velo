@@ -22,6 +22,7 @@ public:
     void creation_liste_graph();
     void compteur();
     void affichage_pareto();
+    void changement_graph_original(graph Graph);
     
     
     

@@ -28,6 +28,8 @@ class arrete
     void changement_S_2( sommet S_2);
     void changement_poids_1(float poids_1);
     void changement_poids_2(float poids_2);
+    int Get_nb_S1();
+    int Get_nb_S2();
 
     void changement_nb (int nb);
 

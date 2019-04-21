@@ -14,9 +14,10 @@
 #include "svgfile.h"
 
 void affichage_graph (graph Graph, int decalage, Svgfile& svgdiagrame);
-graph creation_graph (std::string nom_graph);
+graph creation_graph (std::string nom_graph, int  &ouverture, int choix_poids);
 graph recuperation_poids (graph Graph, std::string nom_graph);
 void compteur_binaire();
+int menu();
 
 
 #endif /* Header_h */

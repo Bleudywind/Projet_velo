@@ -13,15 +13,17 @@
 #include "Header.h"
 #include "svgfile.h"
 
-graph creation_graph (std::string nom_graph)
+graph creation_graph (std::string nom_graph, int  &ouverture, int choix_poids)
 {
-    std::ifstream fichier(nom_graph, std::ios::in);
+    std::string nom_fichier_sommets;
+    std::string nom_fichier_poids, txt = ".txt";
+    nom_fichier_sommets = nom_graph + txt;
+    std::ifstream fichier(nom_fichier_sommets, std::ios::in);
     std::vector<sommet> sommets;
     std::vector<arrete> arretes;
-    std::string nom_fichier_poids;
     std::vector<int> aretes;
-
-
+    
+    
     if(fichier)
     {
 
@@ -59,16 +61,34 @@ graph creation_graph (std::string nom_graph)
         }
 
         fichier.close();
-
+        ouverture = 0;
     }
 
+    else
+        ouverture = 1;
 
 
         graph Graph{sommets, arretes};
+    std::string a;
+    
+    switch (choix_poids)
+    {
+        case 0:
+            a = "_weights_0";
+            break;
+        case 1:
+            a = "_weights_1";
+            break;
+        default:
+            a = "_weights_2";
+            break;
+    }
 
-
-
-      Graph = recuperation_poids(Graph, "triville_weights_0.txt");
+    nom_fichier_poids = nom_graph + a + txt;
+    
+    
+    
+      Graph = recuperation_poids(Graph, nom_fichier_poids);
 
 
 
@@ -125,7 +145,6 @@ graph recuperation_poids (graph Graph, std::string nom_graph)
     
     int nb_a, nb_poids, numero;
     float var = 0;
-
 
     if (fichier)
     {

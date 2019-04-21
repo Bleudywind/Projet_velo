@@ -64,4 +64,12 @@ void arrete::changement_nb(int nb)
     m_nb = nb;
 }
 
+int arrete::Get_nb_S1()
+{
+    return m_S_1.Get_nb();
+}
 
+int arrete::Get_nb_S2()
+{
+    return m_S_2.Get_nb();
+}

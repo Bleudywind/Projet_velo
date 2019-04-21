@@ -17,7 +17,10 @@ Pareto::Pareto(graph Graph)
         m_compteur.push_back(0);
     }
 }
-
+void Pareto::changement_graph_original(graph Graph)
+{
+    m_Graph_original = Graph;
+}
 void Pareto::ajout_Graph(graph Graph, int poids_1, int Poids_2)
 {
     m_Graphs[poids_1][Poids_2].push_back(Graph);
@@ -58,7 +61,7 @@ void Pareto::creation_liste_graph()
     graph Graph{Sommets, arretes_test};
     bool non =0;
     sommet S1{0,0,0}, S2{0,0,0};
-    int taille = 0, max_P1 = 0, max_P2 = 0, compteur_m =0;
+    int taille = 0, max_P1 = 0, max_P2 = 0, compteur_m =0, count = 0;
     arrete Arrete_test;
     std::vector<graph> P2;
     std::vector<std::vector<graph>> P1;
@@ -70,6 +73,7 @@ void Pareto::creation_liste_graph()
     {
         Tri.push_back(0);
     }
+    
     while (!m_compteur[arretes_original.size()])
     {
         for (int i = 0; i < arretes_original.size(); ++i)
@@ -94,24 +98,38 @@ void Pareto::creation_liste_graph()
             
         }
             
-            for (int i = 0; i < arretes_test.size(); ++i)
+            for (double i = 0; i < arretes_test.size(); ++i)
             {
-                Arrete_test = arretes_test[i];
-                S1 = Arrete_test.Get_S1();
-                S2 = Arrete_test.Get_S2();
-                Tri[S1.Get_nb()] = 1;
-                Tri[S2.Get_nb()] = 1;
+                if( Tri[arretes_test[i].Get_nb_S1()] == 0)
+                {
+                    Tri[arretes_test[i].Get_nb_S1()] = 1;
+                    count++;
+                    
+                }
+                if (Tri[arretes_test[i].Get_nb_S2()] == 0)
+                {
+                    Tri[arretes_test[i].Get_nb_S2()] = 1;
+                    count++;
+                }
                 
+                if (count == Sommets.size())
+                {
+                    i = arretes_test.size();
+                    non = 0;
+                }
                 
             }
             
+            
+            if(count < Sommets.size())
+                non = 1;
+            
+            count = 0;
+            
             for (int i = 0; i < Tri.size(); ++i)
-            {
-                if (Tri[i] == 0)
-                    non = 1;
                 Tri [i] = 0;
-            }
            
+            
             
             if (!non)
             {
@@ -179,6 +197,7 @@ void Pareto::creation_liste_graph()
                 
             }
         }
+        
         compteur_m =0;
         arretes_test.clear();
         this->compteur();
